@@ -12,7 +12,7 @@
 	<artifactId>library-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>library-api</name>
-	<description>API do projeto de bibliotecas</description>
+	<description>API do projeto de biblioteca</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -73,6 +73,12 @@
 			<artifactId>modelmapper</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
