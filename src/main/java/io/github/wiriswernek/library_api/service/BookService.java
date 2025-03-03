@@ -1,7 +1,6 @@
 package io.github.wiriswernek.library_api.service;
 
 
-import io.github.wiriswernek.library_api.model.dto.BookDTO;
 import io.github.wiriswernek.library_api.model.entity.BookEntity;
 import io.github.wiriswernek.library_api.model.record.BookRequest;
 import org.springframework.data.domain.Page;
@@ -19,4 +18,6 @@ public interface BookService {
     BookEntity update(Long id, BookRequest book) throws Exception;
 
     Page<BookEntity> search(BookRequest filter, Pageable page);
+
+    BookEntity getBookByIsbn(String isbn) throws Exception;
 }

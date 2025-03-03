@@ -1,6 +1,5 @@
 package io.github.wiriswernek.library_api.model.dto;
 
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,15 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BookDTO {
-    private Long id;
-
-    @NotEmpty
-    private String title;
-
-    @NotEmpty
-    private String author;
-
-    @NotEmpty
+public class LoanDTO {
     private String isbn;
+    private String customer;
 }

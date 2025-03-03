@@ -3,7 +3,6 @@ package io.github.wiriswernek.library_api.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.wiriswernek.library_api.exceptions.BusinessExcetion;
 import io.github.wiriswernek.library_api.exceptions.ErrosEnum;
-import io.github.wiriswernek.library_api.model.dto.BookDTO;
 import io.github.wiriswernek.library_api.model.entity.BookEntity;
 import io.github.wiriswernek.library_api.model.record.BookRequest;
 import io.github.wiriswernek.library_api.service.BookService;
@@ -35,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
-@WebMvcTest
+@WebMvcTest(controllers = BookController.class)
 @AutoConfigureMockMvc
 public class BookControllerTest {
 
@@ -100,7 +99,7 @@ public class BookControllerTest {
                 .content(json);
 
         mockMvc.perform(request)
-                .andExpect(status().isNotAcceptable())
+                .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("errors", hasSize(1)))
                 .andExpect(jsonPath("errors", contains(ErrosEnum.ISBN_DUPLICADO.toString())));
     }
@@ -134,7 +133,7 @@ public class BookControllerTest {
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request)
-                .andExpect(status().isNotAcceptable())
+                .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("errors", hasSize(1)))
                 .andExpect(jsonPath("errors", contains(ErrosEnum.LIVRO_NAO_ENCONTRADO.toString())));
     }
@@ -162,7 +161,7 @@ public class BookControllerTest {
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request)
-                .andExpect(status().isNotAcceptable())
+                .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("errors", hasSize(1)))
                 .andExpect(jsonPath("errors", contains(ErrosEnum.LIVRO_NAO_ENCONTRADO.toString())));
     }
@@ -206,7 +205,7 @@ public class BookControllerTest {
                 .content(json);
 
         mockMvc.perform(request)
-                .andExpect(status().isNotAcceptable())
+                .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("errors", hasSize(1)))
                 .andExpect(jsonPath("errors", contains(ErrosEnum.LIVRO_NAO_ENCONTRADO.toString())));
     }
@@ -242,7 +241,7 @@ public class BookControllerTest {
                 .content(json);
 
         mockMvc.perform(request)
-                .andExpect(status().isNotAcceptable())
+                .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("errors", hasSize(1)))
                 .andExpect(jsonPath("errors", contains(ErrosEnum.ISBN_DUPLICADO.toString())));
     }

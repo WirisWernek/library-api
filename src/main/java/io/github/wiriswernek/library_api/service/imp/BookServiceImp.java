@@ -71,12 +71,20 @@ public class BookServiceImp implements BookService {
 
     @Override
     public Page<BookEntity> search(BookRequest filter, Pageable page) {
-        Example<BookEntity> example = Example.of(modelMapper.map(filter, BookEntity.class),
+
+        BookEntity map = this.modelMapper.map(filter, BookEntity.class);
+        Example<BookEntity> example = Example.of(map,
                 ExampleMatcher.matching()
                         .withIgnoreCase()
-                        .withIncludeNullValues()
+                        .withIgnoreNullValues()
                         .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+
         );
         return bookRepository.findAll(example, page);
+    }
+
+    @Override
+    public BookEntity getBookByIsbn(String isbn) throws Exception {
+        return null;
     }
 }
