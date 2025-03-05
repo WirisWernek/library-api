@@ -12,30 +12,30 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @OpenAPIDefinition(
-		info = @Info(
-				title = "Library API",
-				version = "1.0.0",
-				description = "API de Gerenciamento de emprestimos de livros",
-				termsOfService = "wiriswernek",
-				contact = @Contact(
-						name = "Wiris Wernek",
-						email = "wiriswernek@gmail.com"
-				),
-				license = @License(
-						name = "licence",
-						url = "license"
-				)
-		)
+        info = @Info(
+                title = "Library API",
+                version = "1.0.0",
+                description = "API de Gerenciamento de emprestimos de livros",
+                termsOfService = "wiriswernek",
+                contact = @Contact(
+                        name = "Wiris Wernek",
+                        email = "wiriswernek@gmail.com"
+                ),
+                license = @License(
+                        name = "licence",
+                        url = "license"
+                )
+        )
 )
 @EnableScheduling
 public class LibraryApiApplication {
-	@Bean
-	public ModelMapper modelMapper() {
-		return new ModelMapper();
-	}
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(LibraryApiApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(LibraryApiApplication.class, args);
+    }
 
 }

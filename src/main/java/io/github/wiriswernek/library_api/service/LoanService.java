@@ -7,11 +7,14 @@ import io.github.wiriswernek.library_api.model.record.LoanRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface LoanService {
     LoanEntity save(LoanEntity entity);
     LoanEntity getLoanById(long id);
     LoanEntity update(LoanEntity loan);
     Page<LoanEntity> search(LoanRequest filter, Pageable page);
     Page<LoanEntity> getLoansByBook(BookEntity book, Pageable page);
+    List<LoanEntity> getAllLateLoans();
 
 }

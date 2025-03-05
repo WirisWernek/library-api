@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ILoanRepository extends JpaRepository<LoanEntity, Long> {
@@ -19,4 +20,7 @@ public interface ILoanRepository extends JpaRepository<LoanEntity, Long> {
     Page<LoanEntity> findByBookIsbnOrCustomer(@Param("isbn") String isbn, @Param("customer") String customer, Pageable page);
 
     Page<LoanEntity> findByBook(BookEntity book, Pageable page);
+
+    @Query(value = "select l from LoanEntity l where l.loanDate <= :threeDaysAgo and (l.returned is null or l.returned is false)")
+    List<LoanEntity> findByLoanDateLessThanAndNotReturned(@Param("threeDaysAgo") LocalDate threeDaysAgo);
 }

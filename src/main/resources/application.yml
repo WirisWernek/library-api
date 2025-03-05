@@ -1,6 +1,10 @@
 spring:
   application:
     name: library-api
+    mail:
+      lateloans:
+        message: Atenção! Você tem um empréstimo atrasado, favor devolver o livro o mais rápido possível!
+        default-remetent: wiriswernek@gmail.com
   datasource:
     url: jdbc:postgresql://${DATABASE_SERVER:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:library}
     username: ${DATABASE_USER:postgres}
@@ -15,6 +19,18 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+  mail:
+    protocol: smtp
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: 33af64d13813ee
+    password: 7c31335fe7616e
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   flyway:
     baseline-on-migrate: true
     baseline-version: 0

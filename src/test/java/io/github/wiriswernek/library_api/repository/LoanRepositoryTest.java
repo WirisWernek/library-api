@@ -65,4 +65,36 @@ public class LoanRepositoryTest {
         assertThat(result.getPageable().getPageNumber()).isEqualTo(0);
         assertThat(result.getTotalElements()).isEqualTo(1);
     }
+
+    @Test
+    @DisplayName("Deve obter emprestimos cuja data emprestimo for menor ou igual a tres dias e ainda não foi retornado")
+    public void findByLoanDateLessThanAndNotReturnedTest(){
+
+        var book = BookEntity.builder().isbn("850205709X").title("As Aventuras de PI").author("Fulano").build();
+        entityManager.persist(book);
+
+        var loan = LoanEntity.builder().customer("MACARENA").customerEmail("macarena@gmail.com").loanDate(LocalDate.now().minusDays(5)).book(book).build();
+        entityManager.persist(loan);
+
+        var result = loanRepository.findByLoanDateLessThanAndNotReturned(LocalDate.now().minusDays(4));
+
+        assertThat(result).contains(loan);
+
+    }
+
+    @Test
+    @DisplayName("Deve retornar vazio quando não houver empréstimos atrasados")
+    public void notFindByLoanDateLessThanAndNotReturnedTest(){
+
+        var book = BookEntity.builder().isbn("850205709X").title("As Aventuras de PI").author("Fulano").build();
+        entityManager.persist(book);
+
+        var loan = LoanEntity.builder().customer("MACARENA").customerEmail("macarena@gmail.com").loanDate(LocalDate.now()).book(book).build();
+        entityManager.persist(loan);
+
+        var result = loanRepository.findByLoanDateLessThanAndNotReturned(LocalDate.now().minusDays(4));
+
+        assertThat(result).isEmpty();
+
+    }
 }
