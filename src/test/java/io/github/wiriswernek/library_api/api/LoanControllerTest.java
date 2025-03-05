@@ -1,19 +1,14 @@
 package io.github.wiriswernek.library_api.api;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.wiriswernek.library_api.exceptions.BusinessExcetion;
 import io.github.wiriswernek.library_api.exceptions.ErrosEnum;
-import io.github.wiriswernek.library_api.model.dto.BookDTO;
-import io.github.wiriswernek.library_api.model.dto.LoanDTO;
 import io.github.wiriswernek.library_api.model.entity.BookEntity;
 import io.github.wiriswernek.library_api.model.entity.LoanEntity;
-import io.github.wiriswernek.library_api.model.record.BookRequest;
 import io.github.wiriswernek.library_api.model.record.LoanRequest;
 import io.github.wiriswernek.library_api.model.record.ReturnedLoan;
 import io.github.wiriswernek.library_api.service.BookService;
 import io.github.wiriswernek.library_api.service.LoanService;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,7 +30,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Optional;
 
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
@@ -65,7 +59,7 @@ public class LoanControllerTest {
         String json = new ObjectMapper().writeValueAsString(dto);
 
         BookEntity savedBook = new BookEntity((Long) 1L, "Primeiro Livro", "Meu Autor", "850205709X");
-        LoanEntity savedLoan = new LoanEntity((Long) 1L, "Wiris", LocalDate.now(), false, savedBook);
+        LoanEntity savedLoan = new LoanEntity((Long) 1L, "Wiris", "wiriswernek@gmail.com", LocalDate.now(), false, savedBook);
 
         BDDMockito.given(bookService.getBookByIsbn("850205709X")).willReturn(savedBook);
 
@@ -103,7 +97,7 @@ public class LoanControllerTest {
         String json = new ObjectMapper().writeValueAsString(dto);
 
         BookEntity savedBook = new BookEntity((Long) 1L, "Primeiro Livro", "Meu Autor", "850205709X");
-        LoanEntity savedLoan = new LoanEntity((Long) 1L, "Wiris", LocalDate.now(), false, savedBook);
+        LoanEntity savedLoan = new LoanEntity((Long) 1L, "Wiris", "wiriswernek@gmail.com", LocalDate.now(), false, savedBook);
 
         BDDMockito.given(bookService.getBookByIsbn("850205709X")).willReturn(savedBook);
 

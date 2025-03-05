@@ -22,6 +22,9 @@ public class LoanEntity {
     @Column(name = "CUSTOMER")
     private String customer;
 
+    @Column(name = "CUSTOMER_EMAIL")
+    private String customerEmail;
+
     @Column(name = "LOAN_DATE")
     private LocalDate loanDate;
 

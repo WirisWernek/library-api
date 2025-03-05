@@ -14,6 +14,7 @@ import java.time.LocalDate;
 public class LoanDTO {
     private Long id;
     private String customer;
+    private String customerEmail;
     private Boolean returned;
     private LocalDate loanDate;
     private BookDTO book;

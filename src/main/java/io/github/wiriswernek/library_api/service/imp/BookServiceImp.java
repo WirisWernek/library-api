@@ -2,31 +2,22 @@ package io.github.wiriswernek.library_api.service.imp;
 
 import io.github.wiriswernek.library_api.exceptions.BusinessExcetion;
 import io.github.wiriswernek.library_api.exceptions.ErrosEnum;
-import io.github.wiriswernek.library_api.model.dto.BookDTO;
 import io.github.wiriswernek.library_api.model.entity.BookEntity;
 import io.github.wiriswernek.library_api.model.record.BookRequest;
 import io.github.wiriswernek.library_api.model.repository.IBookRepository;
 import io.github.wiriswernek.library_api.service.BookService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
-import java.util.stream.Collectors;
-
 @Service
+@RequiredArgsConstructor
 public class BookServiceImp implements BookService {
 
     private final IBookRepository bookRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
-
-    public BookServiceImp(IBookRepository bookRepository, ModelMapper modelMapper) {
-        this.bookRepository = bookRepository;
-        this.modelMapper = modelMapper;
-    }
+    private final ModelMapper modelMapper;
 
     @Override
     public BookEntity save(BookRequest book) throws Exception {
@@ -85,6 +76,6 @@ public class BookServiceImp implements BookService {
 
     @Override
     public BookEntity getBookByIsbn(String isbn) throws Exception {
-       return bookRepository.findByIsbn(isbn).orElseThrow(() -> new BusinessExcetion(ErrosEnum.LIVRO_NAO_ENCONTRADO));
+        return bookRepository.findByIsbn(isbn).orElseThrow(() -> new BusinessExcetion(ErrosEnum.LIVRO_NAO_ENCONTRADO));
     }
 }

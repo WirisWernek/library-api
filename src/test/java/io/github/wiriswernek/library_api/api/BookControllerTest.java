@@ -6,6 +6,7 @@ import io.github.wiriswernek.library_api.exceptions.ErrosEnum;
 import io.github.wiriswernek.library_api.model.entity.BookEntity;
 import io.github.wiriswernek.library_api.model.record.BookRequest;
 import io.github.wiriswernek.library_api.service.BookService;
+import io.github.wiriswernek.library_api.service.LoanService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,6 +44,9 @@ public class BookControllerTest {
 
     @MockBean
     BookService service;
+
+    @MockBean
+    LoanService loanService;
 
     static String BOOK_API = "/api/books";
 
