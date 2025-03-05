@@ -44,4 +44,9 @@ public class LoanServiceImp implements LoanService {
     public Page<LoanEntity> search(LoanRequest filter, Pageable page) {
         return loanRepository.findByBookIsbnOrCustomer(filter.isbn(), filter.customer(), page);
     }
+
+    @Override
+    public Page<LoanEntity> getLoansByBook(BookEntity book, Pageable page) {
+        return loanRepository.findByBook(book, page);
+    }
 }

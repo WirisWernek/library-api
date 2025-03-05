@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface ILoanRepository extends JpaRepository<LoanEntity, Long> {
 
     @Query(value = "select case when count(l.id) > 0 then true else false end from LoanEntity l where l.book = :book and (l.returned is null or l.returned is false) ")
@@ -15,4 +17,6 @@ public interface ILoanRepository extends JpaRepository<LoanEntity, Long> {
 
     @Query(value = "select l from LoanEntity as l join l.book as b where b.isbn = :isbn or l.customer = :customer ")
     Page<LoanEntity> findByBookIsbnOrCustomer(@Param("isbn") String isbn, @Param("customer") String customer, Pageable page);
+
+    Page<LoanEntity> findByBook(BookEntity book, Pageable page);
 }

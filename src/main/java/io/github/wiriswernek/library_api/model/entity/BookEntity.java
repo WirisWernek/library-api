@@ -29,7 +29,7 @@ public class BookEntity {
     @Column(name = "ISBN")
     private String isbn;
 
-    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
     private List<LoanEntity> loans;
 
     public BookEntity(Long id, String title, String author, String isbn) {
