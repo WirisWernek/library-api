@@ -85,6 +85,6 @@ public class BookServiceImp implements BookService {
 
     @Override
     public BookEntity getBookByIsbn(String isbn) throws Exception {
-        return null;
+       return bookRepository.findByIsbn(isbn).orElseThrow(() -> new BusinessExcetion(ErrosEnum.LIVRO_NAO_ENCONTRADO));
     }
 }

@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -26,4 +28,15 @@ public class BookEntity {
 
     @Column(name = "ISBN")
     private String isbn;
+
+    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
+    private List<LoanEntity> loans;
+
+    public BookEntity(Long id, String title, String author, String isbn) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+
+    }
 }

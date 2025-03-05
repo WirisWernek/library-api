@@ -17,18 +17,18 @@ import java.time.LocalDate;
 public class LoanEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(name = "CUSTOMER")
-    String customer;
-
-    @ManyToOne( fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID")
-    BookEntity book;
+    private String customer;
 
     @Column(name = "LOAN_DATE")
-    LocalDate loanDate;
+    private LocalDate loanDate;
 
     @Column(name = "RETURNED")
-    Boolean returned;
-        }
+    private Boolean returned;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_BOOK", referencedColumnName = "ID")
+    private BookEntity book;
+}

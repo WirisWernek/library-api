@@ -204,7 +204,7 @@ public class BookServiceTest {
         Page<BookEntity> page = new PageImpl(listBook, PageRequest.of(0, 10), 1);
 
         Mockito.when(iBookRepository.findAll(Mockito.any(Example.class), Mockito.any(PageRequest.class))).thenReturn(page);
-        Page<BookEntity> books = bookService.search(filter, pageRequest );
+        Page<BookEntity> books = bookService.search(filter, pageRequest);
 
         assertThat(books.getTotalElements()).isEqualTo(1);
         assertThat(books.getContent()).isEqualTo(listBook);
@@ -225,12 +225,42 @@ public class BookServiceTest {
         Page<BookEntity> page = new PageImpl(listBook, PageRequest.of(0, 10), 1);
 
         Mockito.when(iBookRepository.findAll(Mockito.any(PageRequest.class))).thenReturn(page);
-        Page<BookEntity> books = bookService.findAll( pageRequest );
+        Page<BookEntity> books = bookService.findAll(pageRequest);
 
         assertThat(books.getTotalElements()).isEqualTo(1);
         assertThat(books.getContent()).isEqualTo(listBook);
         assertThat(books.getPageable().getPageNumber()).isEqualTo(0);
         assertThat(books.getPageable().getPageSize()).isEqualTo(10);
+
+    }
+
+    @Test
+    @DisplayName("Deve obter um livro pelo isbn")
+    public void getBookByIsbnTest() throws Exception {
+        String isbn = "123";
+        BookEntity book = BookEntity.builder().id(1L).isbn("123").title("As Aventuras de PI").author("Fulano").build();
+
+        Mockito.when(iBookRepository.findByIsbn(Mockito.any(String.class))).thenReturn(Optional.of(book));
+        BookEntity bookFound = bookService.getBookByIsbn(isbn);
+
+        assertThat(bookFound.getId()).isEqualTo(1L);
+        assertThat(bookFound.getIsbn()).isEqualTo(isbn);
+        assertThat(bookFound.getTitle()).isEqualTo(book.getTitle());
+        assertThat(bookFound.getAuthor()).isEqualTo(book.getAuthor());
+
+    }
+
+    @Test
+    @DisplayName("Deve retornar um erro ao obter um livro pelo isbn que não existe")
+    public void getBookByIsbnInvalidTest() throws Exception {
+        String isbn = "123";
+
+        Mockito.when(iBookRepository.findByIsbn(Mockito.any(String.class))).thenReturn(Optional.empty());
+
+        Throwable throwable = Assertions.catchThrowable(() -> bookService.getBookByIsbn(isbn));
+
+        assertThat(throwable).isInstanceOf(BusinessExcetion.class).hasMessage(ErrosEnum.LIVRO_NAO_ENCONTRADO.toString());
+        Mockito.verify(iBookRepository, Mockito.times(1)).findByIsbn(isbn);
 
     }
 

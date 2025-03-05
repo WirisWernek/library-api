@@ -5,11 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class LoanDTO {
-    private String isbn;
+    private Long id;
     private String customer;
+    private Boolean returned;
+    private LocalDate loanDate;
+    private BookDTO book;
 }
