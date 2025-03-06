@@ -37,3 +37,11 @@ spring:
     locations: classpath:db/migration
 server:
   port: 8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: [health, info, logfile, metrics]
+logging:
+  file:
+    name: appfile.log

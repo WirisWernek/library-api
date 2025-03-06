@@ -6,9 +6,12 @@ import io.github.wiriswernek.library_api.model.entity.LoanEntity;
 import io.github.wiriswernek.library_api.model.record.BookRequest;
 import io.github.wiriswernek.library_api.service.BookService;
 import io.github.wiriswernek.library_api.service.LoanService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Description;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +34,7 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(description = "Create Book")
     public BookDTO create(@RequestBody @Valid BookRequest book) throws Exception {
         var entity = bookService.save(book);
         return modelMapper.map(entity, BookDTO.class);
