@@ -1,5 +1,13 @@
 package io.github.wiriswernek.library_api.service.imp;
 
+import java.time.LocalDate;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import io.github.wiriswernek.library_api.exceptions.BusinessExcetion;
 import io.github.wiriswernek.library_api.exceptions.ErrosEnum;
 import io.github.wiriswernek.library_api.model.entity.BookEntity;
@@ -8,15 +16,6 @@ import io.github.wiriswernek.library_api.model.record.LoanRequest;
 import io.github.wiriswernek.library_api.model.repository.ILoanRepository;
 import io.github.wiriswernek.library_api.service.LoanService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -45,6 +44,9 @@ public class LoanServiceImp implements LoanService {
 
     @Override
     public Page<LoanEntity> search(LoanRequest filter, Pageable page) {
+		if (filter.customer() == null && filter.isbn() == null) {
+			return loanRepository.findAll(page);
+		}
         return loanRepository.findByBookIsbnOrCustomer(filter.isbn(), filter.customer(), page);
     }
 
